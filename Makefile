@@ -1,4 +1,4 @@
-APP    = target-app
+APP    = web-app
 SCOPE  = user99
 TAG    = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
 
@@ -13,8 +13,11 @@ help:
 	@echo "    interactive - run container interactively on host port 5000"
 	@echo "    clean       - stop local container, clean up workspace"
 
-pip:
-	pip install --quiet --upgrade --requirement requirements.txt
+requirements:
+	pip install --upgrade --requirement requirements.txt
+
+development-requrirements: requirements
+	pip install --upgrade --requirement development-requirements.txt
 
 lint:
 	flake8 --ignore=E501,E231 *.py
