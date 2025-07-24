@@ -3,7 +3,7 @@ name: Pipeline
 on: [push]
 
 env:
-  APPLICATION_NAME: app2
+  APPLICATION_NAME: Mascot
 
 jobs:
   lint-and-test:
@@ -17,9 +17,7 @@ jobs:
         python-version: 3.13
     
     - name: Install requirements
-      run: |
-        pip install --requirement development-requirements.txt
-        pip install --requirement requirements.txt
+      run: pip install --requirement development-requirements.txt
 
     - name: Lint code
       run: |

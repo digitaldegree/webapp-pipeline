@@ -1,4 +1,4 @@
-APP    = web-app
+APP    = mascot
 SCOPE  = user99
 TAG    = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
 
