@@ -13,6 +13,8 @@ jobs:
     
     - name: Setup Python environment
       uses: actions/setup-python@v5.6.0
+      with:
+        python-version: 3.13
     
     - name: Install requirements
       run: pip install --requirement requirements.txt
