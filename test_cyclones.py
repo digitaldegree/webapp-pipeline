@@ -1,13 +1,13 @@
 '''A module for testing'''
 import unittest
-from app import APP
+from main import API
 
 
 class CyclonesTests(unittest.TestCase):
     '''Tests for the Cyclones'''
     def setUp(self):
         '''Create a test client for the app'''
-        self.app = APP.test_client()
+        self.app = API.test_client()
 
     def test_guid(self):
         '''test_guid: a request for the guid shall return 200 OK'''

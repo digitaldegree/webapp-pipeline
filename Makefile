@@ -1,4 +1,4 @@
-APP    = mascot
+API    = mascot
 SCOPE  = user99
 TAG    = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
 
@@ -27,16 +27,16 @@ unittest:
 	python -m unittest --verbose --failfast
 
 build: pip lint unittest
-	docker build -t $(SCOPE)/$(APP):$(TAG) .
+	docker build -t $(SCOPE)/$(API):$(TAG) .
 
 run: build
-	docker run --rm -d -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
+	docker run --rm -d -p 5000:5000 --name $(API) $(SCOPE)/$(API):$(TAG)
 
 interactive: build
-	docker run --rm -it -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
+	docker run --rm -it -p 5000:5000 --name $(API) $(SCOPE)/$(API):$(TAG)
 
 clean:
-	docker container stop $(APP) || true
+	docker container stop $(API) || true
 	@rm -rf ./__pycache__ ./tests/__pycache__
 	@rm -f .*~ *.pyc
 

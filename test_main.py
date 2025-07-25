@@ -1,13 +1,13 @@
 '''A module for testing'''
 import unittest
-from app import APP
+from main import API
 
 
 class Tests(unittest.TestCase):
     '''Basic tests for the application'''
     def setUp(self):
         '''Create a test client for the app'''
-        self.app = APP.test_client()
+        self.app = API.test_client()
 
     def test_200(self):
         '''test_200: a request for / shall return 200 OK'''

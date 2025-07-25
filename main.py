@@ -5,14 +5,14 @@ Mascot: a microservice for serving mascot data
 import json
 from flask import Flask, jsonify, abort, make_response
 
-APP = Flask(__name__)
+API = Flask(__name__)
 
 # Load the data
 with open('data.json', 'r', encoding="utf8") as data:
     MASCOTS = json.load(data)
 
 
-@APP.route('/', methods=['GET'])
+@API.route('/', methods=['GET'])
 def get_mascots():
     """
     Function: get_mascots
@@ -22,7 +22,7 @@ def get_mascots():
     return jsonify(MASCOTS)
 
 
-@APP.route('/<guid>', methods=['GET'])
+@API.route('/<guid>', methods=['GET'])
 def get_mascot(guid):
     """
     Function: get_mascot
@@ -36,7 +36,7 @@ def get_mascot(guid):
     return None
 
 
-@APP.errorhandler(404)
+@API.errorhandler(404)
 def not_found(error):
     """
     Function: not_found
@@ -47,4 +47,4 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    APP.run("0.0.0.0", port=8080, debug=True)
+    API.run("0.0.0.0", port=8080, debug=True)
