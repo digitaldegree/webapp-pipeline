@@ -1,6 +1,6 @@
 name: Pipeline
 
-on: [push]
+on: [push, workflow_dispatch]
 
 env:
   APPLICATION_NAME: Mascot
