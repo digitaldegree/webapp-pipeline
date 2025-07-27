@@ -98,6 +98,6 @@ jobs:
           docker run \
             --rm --detach --publish 10000:10000 \
             --name $APPLICATION_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
-      - run: docker stop $APPLICATION_NAME
       - run: curl --fail --silent http://localhost:10000
       - run: curl --fail --silent http://localhost:10000/05024756-765e-41a9-89d7-1407436d9a58
+      - run: docker stop $APPLICATION_NAME
