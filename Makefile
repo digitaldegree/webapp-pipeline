@@ -5,18 +5,22 @@ TAG    = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
 help:
 	@echo "Run make <target> where target is one of the following..."
 	@echo
-	@echo "    pip         - install required libraries"
-	@echo "    lint        - run flake8 and pylint"
-	@echo "    unittest    - run unittests"
-	@echo "    build       - build docker container"
-	@echo "    run         - run containter on host port 5000"
-	@echo "    interactive - run container interactively on host port 5000"
-	@echo "    clean       - stop local container, clean up workspace"
+	@echo "    requirements - install required libraries"
+	@echo "    development-requirements - install development libraries"
+	@echo "    lint         - run flake8 and pylint"
+	@echo "    unittest     - run unittests"
+	@echo "    build        - build docker container"
+	@echo "    run          - run containter on host port 10000"
+	@echo "    logs 	    - show logs of the running container"
+	@echo "    stop		    - stop local container"
+	@echo "    clean        - stop local container, clean up workspace"
+
+all: development-requirements lint unittest build
 
 requirements:
 	pip install --upgrade --requirement requirements.txt
 
-development-requrirements: requirements
+development-requirements: requirements
 	pip install --upgrade --requirement development-requirements.txt
 
 lint:
@@ -30,10 +34,13 @@ build: pip lint unittest
 	docker build -t $(SCOPE)/$(API):$(TAG) .
 
 run: build
-	docker run --rm -d -p 5000:5000 --name $(API) $(SCOPE)/$(API):$(TAG)
+	docker run --rm -d -p 10000:10000 --name $(API) $(SCOPE)/$(API):$(TAG)
 
-interactive: build
-	docker run --rm -it -p 5000:5000 --name $(API) $(SCOPE)/$(API):$(TAG)
+logs:
+	docker logs -f $(API) || true
+
+stop:
+	docker container stop $(API) || true
 
 clean:
 	docker container stop $(API) || true

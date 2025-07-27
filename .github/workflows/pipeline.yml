@@ -98,9 +98,10 @@ jobs:
           docker run \
             --rm --detach --publish 10000:10000 \
             --name $CONTAINER_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
-      - run: sleep 15
+      - run: sleep 3
       - run: docker logs $CONTAINER_NAME
       - run: |
           docker exec $CONTAINER_NAME \
             python -m unittest --verbose --failfast 
+      - run: docker logs $CONTAINER_NAME
       - run: docker stop $CONTAINER_NAME

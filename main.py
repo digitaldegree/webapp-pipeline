@@ -47,4 +47,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    API.run("0.0.0.0", port=8080, debug=True)
+    import uvicorn
+    from asgiref.wsgi import WsgiToAsgi
+    uvicorn.run(WsgiToAsgi(API), host="0.0.0.0", port=10000)
