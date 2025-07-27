@@ -12,6 +12,19 @@ with open('data.json', 'r', encoding="utf8") as data:
     MASCOTS = json.load(data)
 
 
+@API.route('/health', methods=['GET'])
+def health_check():
+    """
+    Function: health_check
+    Input: none
+    Returns: A simple health status response
+    """
+    return jsonify({
+        'status': 'healthy',
+        'service': 'mascot',
+        'mascots_loaded': len(MASCOTS)
+    })
+
 @API.route('/', methods=['GET'])
 def get_mascots():
     """

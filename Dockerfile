@@ -20,5 +20,5 @@ RUN chmod +x /usr/local/bin/main.py
 EXPOSE 10000
 
 # execute the Flask app
-HEALTHCHECK CMD curl --fail http://localhost:10000/ || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:10000/health || exit 1
 CMD ["/usr/local/bin/main.py"]

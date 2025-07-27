@@ -125,7 +125,7 @@ jobs:
       - name: Wait for service to be ready
         run: |
           for i in {1..30}; do
-            if curl -f http://localhost:10000/; then
+            if curl -f http://localhost:10000/health; then
               echo "Service is ready"
               break
             fi
