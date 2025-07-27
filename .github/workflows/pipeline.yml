@@ -103,3 +103,36 @@ jobs:
           docker exec $CONTAINER_NAME \
             python -m unittest --verbose --failfast 
       - run: docker stop $CONTAINER_NAME
+
+  deploy:
+    needs: test-image
+    runs-on: ubuntu-latest
+    
+    permissions:
+      packages: read
+    
+    services:
+      app:
+        image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        ports:
+          - 10000:10000
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        options: --health-cmd "curl -f http://localhost:10000/health || exit 1" --health-interval 10s --health-timeout 5s --health-retries 3
+
+    steps:
+      - name: Wait for service to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -f http://localhost:10000/; then
+              echo "Service is ready"
+              break
+            fi
+            echo "Waiting for service... ($i/30)"
+            sleep 2
+          done
+          
+      - name: Test API
+        run: |
+          curl -f http://localhost:10000/
