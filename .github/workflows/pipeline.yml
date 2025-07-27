@@ -75,3 +75,18 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  test-image:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: read
+
+    steps:
+      - run: docker pull ghcr.io/${{ github.repository }}:${{ github.sha }}
+      - run: |
+          docker run \
+            --rm --detach --publish 10000:10000 \
+            --name $APPLICATION_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
+      - run: docker stop $APPLICATION_NAME
