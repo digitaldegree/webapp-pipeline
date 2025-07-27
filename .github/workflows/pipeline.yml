@@ -3,7 +3,7 @@ name: Pipeline
 on: [push, workflow_dispatch]
 
 env:
-  APPLICATION_NAME: Mascot
+  CONTAINER_NAME: mascot
 
 jobs:
   lint-and-test:
@@ -97,8 +97,11 @@ jobs:
       - run: |
           docker run \
             --rm --detach --publish 10000:10000 \
-            --name $APPLICATION_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
+            --name $CONTAINER_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
       - run: sleep 15
-      - run: docker logs $APPLICATION_NAME
-      - run: docker exec python -m unittest --verbose --failfast discover --start-directory /usr/local/bin/
-      - run: docker stop $APPLICATION_NAME
+      - run: docker logs $CONTAINER_NAME
+      - run: |
+          docker exec $CONTAINER_NAME \
+            python -m unittest --verbose \
+            --failfast discover --start-directory /usr/local/bin/
+      - run: docker stop $CONTAINER_NAME
