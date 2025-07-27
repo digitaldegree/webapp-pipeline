@@ -100,5 +100,5 @@ jobs:
             --name $APPLICATION_NAME ghcr.io/${{ github.repository }}:${{ github.sha }}
       - run: sleep 15
       - run: docker logs $APPLICATION_NAME
-      - run: curl --fail --silent https://$APPLICATION_NAME:10000
+      - run: curl --fail --silent http://$APPLICATION_NAME:10000
       - run: docker stop $APPLICATION_NAME
