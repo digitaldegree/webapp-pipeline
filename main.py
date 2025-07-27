@@ -25,6 +25,7 @@ def health_check():
         'mascots_loaded': len(MASCOTS)
     })
 
+
 @API.route('/', methods=['GET'])
 def get_mascots():
     """
