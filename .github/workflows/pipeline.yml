@@ -115,5 +115,5 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - run: sudo apt-get install curl
+      - run: apt-get install curl
       - run: curl -f http://localhost:10000/
