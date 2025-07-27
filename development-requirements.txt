@@ -1,5 +1,4 @@
 Flask
-uvicorn
-asgiref
+waitress
 flake8
 pylint
