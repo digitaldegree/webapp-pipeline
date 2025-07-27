@@ -1,4 +1,5 @@
 Flask
-pip
+uvicorn
+asgiref
 flake8
 pylint
