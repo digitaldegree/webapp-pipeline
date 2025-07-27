@@ -102,6 +102,5 @@ jobs:
       - run: docker logs $CONTAINER_NAME
       - run: |
           docker exec $CONTAINER_NAME \
-            python -m unittest --verbose \
-            --failfast discover --start-directory /usr/local/bin/
+            python -m unittest --verbose --failfast 
       - run: docker stop $CONTAINER_NAME
